@@ -42,11 +42,18 @@ app.use(
 )
 
 
-app.use(express.static('./client/build'))
+
 app.use(express.json())
 app.use(helmet());
 app.use(cors());
 app.use(xss());
+
+app.get('/',(req, res) => {
+    res.send(`    <h1 style="text-align: center;">Student API</h1>
+    <h2 style="text-align: center;"><a style="text-decoration: none;" href="/api-docs">Documentation</a></h2>`)
+})
+app.use('/api-docs',swagger.serve,swagger.setup(swaggerDocument))
+
 //routes
 app.use('/api/v1/auth',authRouter)
 app.use('/api/v1/student',authenticateUser,studentRouter)
