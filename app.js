@@ -16,9 +16,9 @@ const connectToDB = require('./db/connectToDB')
 
 //Routes
 const authRouter = require('./routes/auth')
-
+const studentRouter = require('./routes/student');
 //Authentication
-
+const authenticateUser = require('./middles/authentication')
 
 //error handlers
 
@@ -34,6 +34,8 @@ app.use(express.static('./client/build'))
 app.use(express.json())
 //routes
 app.use('/api/v1/auth',authRouter)
+app.use('/api/v1/student',authenticateUser,studentRouter)
+
 
 
 app.use(notFoundMiddleware)
